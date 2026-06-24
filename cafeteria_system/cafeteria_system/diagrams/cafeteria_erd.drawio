@@ -1,0 +1,63 @@
+<mxfile host="app.diagrams.net" modified="2026-05-08T18:30:00.000Z" agent="Cursor" version="24.7.17">
+  <diagram id="ERD_CAFE" name="ERD (Crow's Foot)">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="cust" value="CUSTOMER&#xa;—&#xa;PK CUSTOMER_ID&#xa;NAME&#xa;EMAIL [UQ]&#xa;PHONE [UQ]&#xa;CUSTOMER_TYPE {Student|Staff|Guest}&#xa;REGISTERED_DATE" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="300" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="emp" value="EMPLOYEE&#xa;—&#xa;PK EMPLOYEE_ID&#xa;NAME&#xa;ROLE {Cashier|Chef|Manager}&#xa;SALARY&#xa;HIRE_DATE&#xa;SHIFT_START&#xa;SHIFT_END" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="340" width="300" height="210" as="geometry"/>
+        </mxCell>
+        <mxCell id="shift" value="SHIFT&#xa;—&#xa;PK SHIFT_ID&#xa;FK EMPLOYEE_ID&#xa;SHIFT_DATE&#xa;START_TIME&#xa;END_TIME&#xa;HOURS_WORKED" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="610" width="300" height="180" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cat" value="MENU_CATEGORY&#xa;—&#xa;PK CATEGORY_ID&#xa;CATEGORY_NAME [UQ]&#xa;DESCRIPTION" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="420" y="60" width="300" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="item" value="MENU_ITEM&#xa;—&#xa;PK ITEM_ID&#xa;FK CATEGORY_ID&#xa;NAME [UQ]&#xa;PRICE&#xa;CALORIE_COUNT&#xa;IS_AVAILABLE {Y|N}&#xa;AVERAGE_RATING" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="420" y="260" width="300" height="210" as="geometry"/>
+        </mxCell>
+        <mxCell id="inv" value="INVENTORY&#xa;—&#xa;PK INVENTORY_ID&#xa;ITEM_NAME [UQ]&#xa;UNIT&#xa;QUANTITY_IN_STOCK&#xa;REORDER_LEVEL&#xa;LAST_RESTOCKED" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="420" y="540" width="300" height="190" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="usage" value="INGREDIENT_USAGE&#xa;—&#xa;PK USAGE_ID&#xa;FK ITEM_ID&#xa;FK INVENTORY_ID&#xa;QUANTITY_REQUIRED" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="780" y="540" width="320" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="disc" value="DISCOUNT&#xa;—&#xa;PK DISCOUNT_ID&#xa;CUSTOMER_TYPE&#xa;DISCOUNT_PERCENT&#xa;VALID_FROM&#xa;VALID_TO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="780" y="60" width="320" height="170" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ord" value="ORDER&#xa;—&#xa;PK ORDER_ID&#xa;FK CUSTOMER_ID&#xa;FK EMPLOYEE_ID (nullable)&#xa;ORDER_DATE&#xa;ORDER_TIME&#xa;TOTAL_AMOUNT&#xa;STATUS {Pending|Completed|Cancelled}&#xa;PAYMENT_METHOD" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="60" width="360" height="240" as="geometry"/>
+        </mxCell>
+        <mxCell id="oi" value="ORDER_ITEM&#xa;—&#xa;PK ORDER_ITEM_ID&#xa;FK ORDER_ID&#xa;FK ITEM_ID&#xa;QUANTITY&#xa;UNIT_PRICE&#xa;SUBTOTAL" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="340" width="360" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="pay" value="PAYMENT&#xa;—&#xa;PK PAYMENT_ID&#xa;FK ORDER_ID [UQ]&#xa;AMOUNT_PAID&#xa;PAYMENT_DATE&#xa;PAYMENT_STATUS {Paid|Refunded|Pending}" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="590" width="360" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="fb" value="FEEDBACK&#xa;—&#xa;PK FEEDBACK_ID&#xa;FK CUSTOMER_ID&#xa;FK ORDER_ID [UQ]&#xa;RATING [1–5]&#xa;COMMENTS&#xa;FEEDBACK_DATE" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;align=left;spacingLeft=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="780" y="260" width="320" height="190" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e1" value="places (1..N)" style="endArrow=ERmany;startArrow=ERone;html=1;strokeColor=#111827;fontColor=#111827;" edge="1" parent="1" source="cust" target="ord"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" value="handles (0..N)" style="endArrow=ERmany;startArrow=ERone;dashed=1;html=1;strokeColor=#111827;fontColor=#111827;" edge="1" parent="1" source="emp" target="ord"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" value="contains (1..N)" style="endArrow=ERmany;startArrow=ERone;html=1;strokeColor=#111827;fontColor=#111827;" edge="1" parent="1" source="ord" target="oi"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" value="appears in (1..N)" style="endArrow=ERmany;startArrow=ERone;html=1;strokeColor=#111827;fontColor=#111827;" edge="1" parent="1" source="item" target="oi"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" value="groups (1..N)" style="endArrow=ERmany;startArrow=ERone;html=1;strokeColor=#111827;fontColor=#111827;" edge="1" parent="1" source="cat" target="item"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" value="has (1..1)" style="endArrow=ERone;startArrow=ERone;html=1;strokeColor=#111827;fontColor=#111827;" edge="1" parent="1" source="ord" target="pay"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" value="submits (1..N)" style="endArrow=ERmany;startArrow=ERone;html=1;strokeColor=#111827;fontColor=#111827;" edge="1" parent="1" source="cust" target="fb"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" value="receives (1..1)" style="endArrow=ERone;startArrow=ERone;html=1;strokeColor=#111827;fontColor=#111827;" edge="1" parent="1" source="ord" target="fb"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" value="uses (1..N)" style="endArrow=ERmany;startArrow=ERone;html=1;strokeColor=#111827;fontColor=#111827;" edge="1" parent="1" source="item" target="usage"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" value="referenced by (1..N)" style="endArrow=ERmany;startArrow=ERone;html=1;strokeColor=#111827;fontColor=#111827;" edge="1" parent="1" source="inv" target="usage"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" value="works (1..N)" style="endArrow=ERmany;startArrow=ERone;html=1;strokeColor=#111827;fontColor=#111827;" edge="1" parent="1" source="emp" target="shift"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" value="applies by type" style="endArrow=none;startArrow=none;dashed=1;html=1;strokeColor=#6b7280;fontColor=#6b7280;" edge="1" parent="1" source="disc" target="cust"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

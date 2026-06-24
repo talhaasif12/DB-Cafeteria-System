@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h3 class="mb-0">Dashboard</h3>
+      <div class="text-muted">Today: {{ today.strftime("%Y-%m-%d") }}</div>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('order') }}">Place Order</a>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-muted">Today's Revenue</div>
+          <div class="fs-4 fw-bold">Rs. {{ "%.0f"|format(revenue) }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-muted">Total Orders Today</div>
+          <div class="fs-4 fw-bold">{{ orders_today }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-muted">Low Stock Items</div>
+          <div class="fs-4 fw-bold">{{ low_stock }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-muted">Top Item of the Day</div>
+          {% if top_item %}
+            <div class="fw-bold">{{ top_item }}</div>
+            <div class="text-muted small">Quantity: {{ top_qty }}</div>
+          {% else %}
+            <div class="text-muted">No orders yet</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="mb-2">Quick Links</h5>
+      <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-outline-dark" href="{{ url_for('menu') }}">Menu</a>
+        <a class="btn btn-outline-dark" href="{{ url_for('orders') }}">Orders</a>
+        <a class="btn btn-outline-dark" href="{{ url_for('inventory') }}">Inventory</a>
+        <a class="btn btn-outline-dark" href="{{ url_for('feedback') }}">Feedback</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

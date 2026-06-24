@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h3 class="mb-0">Menu</h3>
+      <div class="text-muted">Available items grouped by category</div>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('order') }}">Place an Order</a>
+  </div>
+
+  {% for category, items in grouped.items() %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="mb-3">{{ category }}</h5>
+        <div class="table-responsive">
+          <table class="table table-sm align-middle mb-0">
+            <thead>
+              <tr>
+                <th style="width: 70px;">ID</th>
+                <th>Item</th>
+                <th style="width: 120px;">Price</th>
+                <th style="width: 140px;">Calories</th>
+                <th style="width: 140px;">Avg Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for it in items %}
+                <tr>
+                  <td class="text-muted">{{ it.item_id }}</td>
+                  <td class="fw-semibold">{{ it.name }}</td>
+                  <td>Rs. {{ "%.0f"|format(it.price) }}</td>
+                  <td>{{ it.calorie_count }}</td>
+                  <td>{{ "%.2f"|format(it.avg_rating) }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
+

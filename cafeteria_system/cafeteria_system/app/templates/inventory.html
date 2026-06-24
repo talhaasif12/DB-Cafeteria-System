@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h3 class="mb-0">Inventory</h3>
+      <div class="text-muted">Ingredients and raw materials (low stock highlighted)</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th style="width: 90px;">ID</th>
+              <th>Item</th>
+              <th style="width: 90px;">Unit</th>
+              <th style="width: 180px;">Qty In Stock</th>
+              <th style="width: 160px;">Reorder Level</th>
+              <th style="width: 160px;">Last Restocked</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for it in inventory %}
+              <tr class="{% if it.is_low %}table-danger{% endif %}">
+                <td class="text-muted">{{ it.inventory_id }}</td>
+                <td class="fw-semibold">{{ it.item_name }}</td>
+                <td>{{ it.unit }}</td>
+                <td>{{ "%.3f"|format(it.quantity_in_stock) }}</td>
+                <td>{{ "%.3f"|format(it.reorder_level) }}</td>
+                <td class="text-muted">{{ it.last_restocked.strftime("%Y-%m-%d") if it.last_restocked else "-" }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

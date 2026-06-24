@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h3 class="mb-0">Orders</h3>
+      <div class="text-muted">All orders with customer and status</div>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('order') }}">New Order</a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th style="width: 90px;">Order ID</th>
+              <th>Date</th>
+              <th style="width: 80px;">Time</th>
+              <th>Customer</th>
+              <th style="width: 140px;">Total</th>
+              <th style="width: 140px;">Status</th>
+              <th style="width: 120px;">Method</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for o in orders %}
+              <tr>
+                <td class="fw-semibold">#{{ o.order_id }}</td>
+                <td>{{ o.order_date.strftime("%Y-%m-%d") if o.order_date else "" }}</td>
+                <td class="text-muted">{{ o.order_time }}</td>
+                <td>{{ o.customer_name }}</td>
+                <td>Rs. {{ "%.0f"|format(o.total_amount) }}</td>
+                <td>
+                  {% set st = (o.status or "") %}
+                  {% if st == "Pending" %}
+                    <span class="badge-soft badge-pending">Pending</span>
+                  {% elif st == "Completed" %}
+                    <span class="badge-soft badge-completed">Completed</span>
+                  {% else %}
+                    <span class="badge-soft badge-cancelled">Cancelled</span>
+                  {% endif %}
+                </td>
+                <td class="text-muted">{{ o.payment_method or "-" }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
